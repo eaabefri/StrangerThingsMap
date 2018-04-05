@@ -1,0 +1,25 @@
+*{
+box-sizing: border-box;
+}
+
+/*global*/
+
+
+/* Mobiler */
+@media(max-width:  ){
+    nav{width: 100%}
+}
+
+
+/*tablet*/
+@media(min-width)and(max-width: ) {
+    img{width: %}
+    
+    
+/*desktop*/
+}
+@media(min-width:  ) {
+    
+}
+
+

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Stranger Things Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+    
+  
+    
+
+
+<style>
+    
+    
+    
+    body {
+        height: 2000px; 
+        
+    }
+    
+    #logo {
+        display: block;
+        position: fixed;
+       z-index: 1;
+    }    
+    
+#map {
+    position: fixed;
+    width:50%;
+}
+#features {
+    width: 50%;
+    margin-left: 50%;
+    font-family: 'Benguiat Bold';
+    overflow-y: scroll;
+    background-color: #fafafa;
+}
+section {
+    padding:  25px 50px;
+    line-height: 25px;
+    
+    font-size: 13px;
+    
+    
+    
+    
+   
+}
+section.active {
+    opacity: 1;
+}
+section:last-child {
+    border-bottom: none;
+   
+}
+</style>
+
+<div id='map'> 
+     <img id="logo" src="images/logo%20stranger%20things.png" alt="Logo"  width="300">
+    </div>
+<div id='features'>
+    <section id='Atlanta' class='active'>
+        <h3>Where is Stranger Things filmed?</h3>
+        <p>
+The brothers found many places in and around the Atlanta, Georgia area that reminded them of their own childhoods and felt the area would work well with the narrative shift to the fictional town of Hawkins.
+</p>
+    </section>
+    <section id='Conyers'>
+        <h3>Conyers, Georgia</h3>
+        <p>Georgia International Horse Park was used for the scary scenes in which the character took scary walks through the woods in search of friends or the Demegorgon. During the 1996 Summer Olympics, which ran from July 19 to August 4, over 600,000 people visited the track to witness events in equestrian, mountain biking, and the riding and running portions of the modern pentathlon events. The venue has hosted several concerts over the years, primarily utilizing the main horse park arena and bleacher seating.</p>
+    </section>
+    <section id='Stockbridge'>
+        <h3>Stockbridge, Georgia</h3>
+        <p>Patrick Henry High School was used for the middle school and high school scenes in the show. It was the alternative high school for the Henry County School System but was closed after the 2015 school year due to the high cost of upkeep to the ageing building, which was the original Stockbridge High School.</p>
+    </section>
+    <section id='Jackson'>
+        <h3>Jackson, Georgia</h3>
+        <p>Remaining scenes are filmed in Jackson which is a small city to the South East of Atlanta. The Butts County Courthouse, sewer authority building and the library all feature in season one are all in Jackson.</p>
+    </section>
+    
+    
+</div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiYmZyaXNjaCIsImEiOiJjamZqYzVjazQ2YWZqMndwbnk1eHl5ZW5mIn0.rVuDwaDvB5wFMWcwgmmGDQ';
+
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/bfrisch/cjfl4dy9qh6ld2rmvs76p682m',
+    center: [-84.390200, 33.749100],
+    zoom: 1.00,
+    bearing: 0.00,
+    pitch: 0.00
+});
+
+var chapters = {
+    'Atlanta': {
+        bearing: 0.00,
+        center: [-84.390200, 33.749100],
+        zoom: 9.00,
+        pitch: 0.00
+    },
+    'Conyers': {
+        duration: 6000,
+        center: [-84.021264, 33.660856],
+        bearing: 0.00,
+        zoom: 13.83,
+        pitch: 60.00
+    },
+    'Stockbridge': {
+        bearing: -23.20,
+        center: [-84.237410, 33.544969],
+        zoom: 11.88,
+        speed: 0.6,
+        pitch: 60.00
+    },
+    'Jackson': {
+        bearing: 106.13,
+        center: [-83.969470, 33.297215],
+        zoom: 14.05,
+        pitch: 42.00
+    }
+};
+
+// On every scroll event, check which element is on screen
+window.onscroll = function() {
+    var chapterNames = Object.keys(chapters);
+    for (var i = 0; i < chapterNames.length; i++) {
+        var chapterName = chapterNames[i];
+        if (isElementOnScreen(chapterName)) {
+            setActiveChapter(chapterName);
+            break;
+        }
+    }
+};
+
+var activeChapterName = 'baker';
+function setActiveChapter(chapterName) {
+    if (chapterName === activeChapterName) return;
+
+    map.flyTo(chapters[chapterName]);
+
+    document.getElementById(chapterName).setAttribute('class', 'active');
+    document.getElementById(activeChapterName).setAttribute('class', '');
+
+    activeChapterName = chapterName;
+}
+
+function isElementOnScreen(id) {
+    var element = document.getElementById(id);
+    var bounds = element.getBoundingClientRect();
+    return bounds.top < window.innerHeight && bounds.bottom > 0;
+}
+
+</script>
+
+    
+    
+</body>
+</html>
